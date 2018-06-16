@@ -6,12 +6,13 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.example.wd18finalproj.models.Appointment;
 import com.example.wd18finalproj.models.Subject;
 
 @Entity
-@DiscriminatorValue("TUTOR")
+@Table(name = "TUTOR")
 public class Tutor extends User {
   
   String street;
