@@ -1,0 +1,15 @@
+
+    <h2>Tutor Search</h2>
+
+    <input [(ngModel)]="tutorAddress" placeholder="address"/>
+    <button (click)="searchForTutors(tutorAddress)">Search</button>
+
+    <div class="container">
+    <div id="map" style="width:500px;height:380px;"></div>
+    </div>
+    <h2>Tutors for address:</h2>
+    <ul>
+      <li *ngFor="let tutor of tutors">
+        {{tutor.username}}: <a (click)="searchForTutors(tutor.address)">{{tutor.address}}</a>
+      </li>
+    </ul>
