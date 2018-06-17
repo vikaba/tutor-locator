@@ -7,10 +7,10 @@ import {User} from '../models/user.model.client';
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  templateUrl: './tutor.profile.component.html',
+  styleUrls: ['./tutor.profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class TutorProfileComponent implements OnInit {
   user = {};
   username;
   password;

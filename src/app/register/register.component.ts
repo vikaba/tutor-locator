@@ -17,35 +17,37 @@ export class RegisterComponent implements OnInit {
   password2;
   role;
   constructor(private router: Router,
+              private service: UserServiceClient,
               private studentService: StudentServiceClient,
               private tutorService: TutorServiceClient,
-              private parentService: ParentServiceClient,
-              private route: ActivatedRoute) {
+              private parentService: ParentServiceClient) {
   }
 
 
   register(username, password, password2, role) {
-    console.log([username, password, password2, role]);
     if (password !== password2) {
       alert('passwords do not match')
       return;
-    }
-    if (role === 'tutor') {
+    } this.service
+      .register(username, password, role)
+      .then(() =>
+        this.router.navigate(['profile']));
+    /*if (role === 'tutor') {
       this.tutorService
         .register(username, password)
         .then(() =>
-          this.router.navigate(['profile']));
+          this.router.navigate(['tutor-profile']));
     } else if (role === 'student') {
       this.studentService
         .register(username, password)
         .then(() =>
-          this.router.navigate(['profile']));
+          this.router.navigate(['student-profile']));
     } else if (role === 'parent') {
       this.parentService
         .register(username, password)
         .then(() =>
-          this.router.navigate(['profile']));
-    }
+          this.router.navigate(['parent-profile']));
+    }*/
   }
 
   ngOnInit() {

@@ -6,25 +6,29 @@ export class UserServiceClient {
   }
 
   profile() {
+    console.log('profile')
     return fetch('http://localhost:8080/api/profile',
       {
-        credentials: 'include', // include, same-origin, *omit
+        credentials: 'same-origin', // include, same-origin, *omit
       })
       .then(response => response.json());
   }
 
-  createUser(username, password) {
+  register(username, password, role) {
+    console.log([username, password, role]);
     const user = {
       username: username,
       password: password,
+      userType: role
     };
-    return fetch('http://localhost:8080/api/user', {
+    return fetch('http://localhost:8080/api/register', {
       body: JSON.stringify(user),
-      credentials: 'include', // include, same-origin, *omit
-      method: 'post',
+      credentials: 'same-origin', // include, same-origin, *omit
       headers: {
         'content-type': 'application/json'
-      }
-    });
+      },
+      method: 'post'}).then(function (response) {
+      return response.json();
+    })
   }
 }

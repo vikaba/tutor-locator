@@ -6,7 +6,7 @@ export class TutorServiceClient {
   }
 
   profile() {
-    return fetch('http://localhost:8080/api/profile',
+    return fetch('http://localhost:8080/api/profile/tutor',
       {
         credentials: 'include', // include, same-origin, *omit
       })
