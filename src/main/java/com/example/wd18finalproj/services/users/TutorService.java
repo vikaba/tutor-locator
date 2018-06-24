@@ -17,7 +17,7 @@ import com.example.wd18finalproj.models.users.Tutor;
 import com.example.wd18finalproj.repositories.users.TutorRepository;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 public class TutorService {
   @Autowired
   TutorRepository repository;
