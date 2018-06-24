@@ -5,9 +5,10 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
-@DiscriminatorValue("PARENT")
+@Table(name = "PARENT")
 public class Parent extends User {
 
   @ManyToMany(mappedBy = "parents")

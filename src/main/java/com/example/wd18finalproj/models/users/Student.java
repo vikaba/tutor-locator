@@ -6,12 +6,13 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.example.wd18finalproj.models.Appointment;
 import com.example.wd18finalproj.models.Subject;
 
 @Entity
-@DiscriminatorValue("STUDENT")
+@Table(name = "STUDENT")
 public class Student extends User {
   
   @OneToMany(mappedBy = "student")
