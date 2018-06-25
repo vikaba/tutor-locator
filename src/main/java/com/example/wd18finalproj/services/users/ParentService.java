@@ -17,50 +17,32 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.wd18finalproj.models.users.Parent;
 import com.example.wd18finalproj.models.users.Student;
+import com.example.wd18finalproj.models.users.Tutor;
+import com.example.wd18finalproj.models.users.User;
 import com.example.wd18finalproj.repositories.users.ParentRepository;
 import com.example.wd18finalproj.repositories.users.StudentRepository;
+import com.example.wd18finalproj.repositories.users.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
 public class ParentService {
   @Autowired
   ParentRepository repository;
-  
-  @GetMapping("/api/session/set/{attr}/{value}")
-  public String setSessionAttribute(@PathVariable("attr") String attr,
-      @PathVariable("value") String value, HttpSession session) {
-    session.setAttribute(attr, value);
-    return attr + " = " + value;
-  }
-  
-  @GetMapping("/api/session/get/{attr}")
-  public String getSessionAttribute(@PathVariable ("attr") String attr, HttpSession session) {
-    return (String) session.getAttribute(attr);
-  }
-  
-  @GetMapping("/api/session/invalidate")
-  public String invalidateSession(HttpSession session) {
-    session.invalidate();
-  return "session invalidated";
-  }
-  
-  @PostMapping("/api/logout")
-  public void logout(HttpSession session) {
-    session.invalidate();
-  }
+  @Autowired
+  UserRepository userRepository;
   
   @DeleteMapping("/api/parent/{userId}")
   public void deleteParent(@PathVariable("userId") int id) {
     repository.deleteById(id);
   }
   
-  @GetMapping("/api/profile")
+  @GetMapping("/api/profile/parent")
   public Parent profile(HttpSession session) {
     Parent currentUser = (Parent) session.getAttribute("currentUser");  
     return currentUser;
   }
   
-  @PutMapping("/api/profile")
+  @PutMapping("/api/profile/parent")
   public Parent updateProfile(@RequestBody Parent user, HttpSession session) {
     Parent currentUser = (Parent) session.getAttribute("currentUser");  
     if (currentUser != null) {
@@ -74,11 +56,12 @@ public class ParentService {
   }
 
   
-  @PostMapping("/api/parent")
-  public Parent register(@RequestBody Parent parent) {
-    List<Parent> sameUsername = (List<Parent>) repository.findUserByUsername(parent.getUsername());
+  @PostMapping("/api/register/parent")
+  public Parent register(@RequestBody Parent parent, HttpSession session) {
+    List<User> sameUsername = (List<User>) userRepository.findUserByUsername(parent.getUsername());
     if (sameUsername == null || sameUsername.isEmpty()) {
       Parent u =  repository.save(parent);
+      session.setAttribute("currentUser", u);
       return u;
     } else {
       throw new ConflictException();
@@ -86,11 +69,12 @@ public class ParentService {
   }
   
   @PostMapping("/api/login/parent")
-  public Parent login(@RequestBody Parent parent) {
+  public Parent login(@RequestBody Parent parent, HttpSession session) {
     List<Parent> goodLogin =
         (List<Parent>) repository.findUserByCredentials(parent.getUsername(), parent.getPassword());
       if (goodLogin != null || !(goodLogin.isEmpty())) {
         Parent u = goodLogin.get(0);
+        session.setAttribute("currentUser", u);
       return u;
     } else {
       return null;
@@ -110,6 +94,12 @@ public class ParentService {
   @GetMapping("/api/parent")
   public List<Parent> findAllParents() {
     return (List<Parent>) repository.findAll();
+  }
+  
+  @PostMapping("/api/parent")
+  public Parent createParent(@RequestBody Parent parent) {
+      Parent u = repository.save(parent);
+      return u;
   }
   
   @GetMapping("/api/course/{courseId}/module")
@@ -155,5 +145,23 @@ public class ParentService {
     } else {
       return null;
     }
+  }
+  
+  @GetMapping("/api/parent/session/set/{attr}/{value}")
+  public String setSessionAttribute(@PathVariable("attr") String attr,
+      @PathVariable("value") String value, HttpSession session) {
+    session.setAttribute(attr, value);
+    return attr + " = " + value;
+  }
+  
+  @GetMapping("/api/parent/session/get/{attr}")
+  public String getSessionAttribute(@PathVariable ("attr") String attr, HttpSession session) {
+    return (String) session.getAttribute(attr);
+  }
+  
+  @GetMapping("/api/parent/session/invalidate")
+  public String invalidateSession(HttpSession session) {
+    session.invalidate();
+  return "session invalidated";
   }
 }

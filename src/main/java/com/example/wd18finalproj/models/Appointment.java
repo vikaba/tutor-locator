@@ -89,5 +89,4 @@ public class Appointment {
     this.apptType = apptType;
   }
 	
-	
 }

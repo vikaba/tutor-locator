@@ -42,6 +42,7 @@ public class AppointmentService {
 	
 	@PostMapping("/api/appt")
 	public Appointment createAppt(@RequestBody Appointment appt) {
+		System.out.println("in server");
 		return repository.save(appt);
 	}
 	

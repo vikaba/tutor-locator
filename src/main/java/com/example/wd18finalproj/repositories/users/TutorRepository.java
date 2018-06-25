@@ -1,5 +1,7 @@
 package com.example.wd18finalproj.repositories.users;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -8,7 +10,7 @@ import com.example.wd18finalproj.models.users.Tutor;
 
 public interface TutorRepository extends CrudRepository<Tutor, Integer> {
   @Query("SELECT u FROM Tutor u WHERE u.username=:username")
-  Iterable<Tutor> findUserByUsername(@Param("username") String username);
+  Optional<Tutor> findUserByUsername(@Param("username") String username);
   
   @Query("SELECT u FROM Tutor u WHERE u.username=:username AND u.password=:password")
   Iterable<Tutor> findUserByCredentials(@Param("username") String username, @Param("password") String password);
