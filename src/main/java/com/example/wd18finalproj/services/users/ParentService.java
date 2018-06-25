@@ -1,5 +1,6 @@
 package com.example.wd18finalproj.services.users;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,8 +38,8 @@ public class ParentService {
   }
   
   @GetMapping("/api/profile/parent")
-  public Parent profile(HttpSession session) {
-    Parent currentUser = (Parent) session.getAttribute("currentUser");  
+  public User profile(HttpSession session) {
+    User currentUser = (User) session.getAttribute("currentUser");  
     return currentUser;
   }
   
@@ -102,10 +103,10 @@ public class ParentService {
       return u;
   }
   
-  @GetMapping("/api/course/{courseId}/module")
+  @GetMapping("/api/parent/{parentId}/children")
   public List<Student> findAllChildrenForParent(
-      @PathVariable("courseId") int courseId) {
-    Optional<Parent> data = repository.findById(courseId);
+      @PathVariable("parentId") int parentId) {
+    Optional<Parent> data = repository.findById(parentId);
     if(data.isPresent()) {
       Parent parent = data.get();
       return parent.getChildren();
@@ -117,6 +118,24 @@ public class ParentService {
   @GetMapping("/api/parent?username={username}")
   public List<Parent> findParentByUsername(String username) {
     return (List<Parent>) repository.findUserByUsername(username);
+  }
+  
+  @PostMapping("/api/parent/{parentId}/children")
+  public Student addStudent(@PathVariable("parentId") int parentId, @RequestBody Student student) {
+    Optional<Parent> data = repository.findById(parentId);
+    if (data.isPresent()) {
+      Parent user = data.get(); // get user database
+      List<Parent> parents = new ArrayList<Parent>();
+      parents.add(user);
+      student.setParents(parents);
+      List<Student> students = new ArrayList<Student>();
+      students.add(student);
+      user.setChildren(students);
+      repository.save(user);
+      return student;
+    } else {
+      return null;
+    }
   }
   
   @PutMapping("/api/parent/{userId}")

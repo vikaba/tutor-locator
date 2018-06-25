@@ -22,5 +22,9 @@ public class Parent extends User {
 		this.children = children;
 	}
 	
+	 public void addChild(Student child) {
+	    this.children.add(child);
+	  }
+	
 
 }

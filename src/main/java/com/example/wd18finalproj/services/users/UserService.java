@@ -21,11 +21,6 @@ import com.example.wd18finalproj.models.users.Tutor;
 import com.example.wd18finalproj.models.users.User;
 import com.example.wd18finalproj.repositories.users.UserRepository;
 
-//@ResponseStatus(HttpStatus.CONFLICT)
-//class ConflictException extends RuntimeException {
-//
-//}
-
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
 public class UserService {
