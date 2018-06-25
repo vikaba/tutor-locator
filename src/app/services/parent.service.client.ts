@@ -100,7 +100,6 @@ export class ParentServiceClient {
   }
 
   addStudent(parentId, student) {
-    console.log(student);
     return fetch('http://localhost:8080/api/parent/' + parentId + '/children',  {
       method: 'post',
       body: JSON.stringify(student),

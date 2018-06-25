@@ -30,7 +30,7 @@ export class ParentComponent implements OnInit {
   addStudent(toAddUsername) {
     this.studentService.findStudentByUsername(toAddUsername)
       .then(student => {
-        this.parentService.addStudent(this.parentId, student)
+        this.parentService.addStudent(this.parentId, student[0])
       .then(() => {
       this.loadChildren();
     });
