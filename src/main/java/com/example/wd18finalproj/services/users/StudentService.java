@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.wd18finalproj.models.Appointment;
 import com.example.wd18finalproj.models.users.Student;
 import com.example.wd18finalproj.models.users.Tutor;
 import com.example.wd18finalproj.models.users.User;
@@ -66,6 +67,17 @@ public class StudentService {
     Optional<Student> data = repository.findById(userId);
     if (data.isPresent()) {
       return data.get();
+    } else {
+      return null;
+    }
+  }
+  
+  @GetMapping("/api/student/{userId/appointments")
+  public List<Appointment> findAppointmentsForStudent(@PathVariable("userId") int userId) {
+    Optional<Student> data = repository.findById(userId);
+    if (data.isPresent()) {
+      Student student = data.get();
+      return student.getAppointments();
     } else {
       return null;
     }
