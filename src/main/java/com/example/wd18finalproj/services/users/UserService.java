@@ -21,20 +21,23 @@ import com.example.wd18finalproj.models.users.Tutor;
 import com.example.wd18finalproj.models.users.User;
 import com.example.wd18finalproj.repositories.users.UserRepository;
 
+@ResponseStatus(HttpStatus.CONFLICT)
+class ConflictException extends RuntimeException {
+
+}
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4000", maxAge = 3600, allowCredentials = "true")
 public class UserService {
   @Autowired
   UserRepository repository;
-  
   
   @GetMapping("/api/user")
   public List<User> findAllUsers() {
     return (List<User>) repository.findAll();
   }
   
-  @GetMapping("/api/tutor/{userId}")
+  @GetMapping("/api/user/{userId}")
   public User findUserById(@PathVariable("userId") int userId) {
     Optional<User> data = repository.findById(userId);
     if (data.isPresent()) {
@@ -42,6 +45,42 @@ public class UserService {
     } else {
       return null;
     }
+  }
+  
+  @PutMapping("/api/user/{userId}")
+  public User updateUser(@PathVariable("userId") int userId, @RequestBody User newUser) {
+    Optional<User> data = repository.findById(userId);
+    if (data.isPresent()) {
+      User user = data.get(); // get user data
+      if (newUser.getUsername() != null) {
+        user.setUsername(newUser.getUsername());
+      }
+      if (newUser.getPassword() != null) {
+        user.setPassword(newUser.getPassword());
+      }
+      if (newUser.getFirstName() != null) {
+        user.setFirstName(newUser.getFirstName());
+      }
+      if (newUser.getLastName() != null) {
+        user.setLastName(newUser.getLastName());
+      }
+      if (newUser.getEmail() != null) {
+        user.setEmail(newUser.getEmail());
+      }
+      if (newUser.getUserType() != null) {
+        user.setUserType(newUser.getUserType());
+      }
+      User u = repository.save(user); // save updated user in database
+      return u; // return updated user
+     
+    } else {
+      return null;
+    }
+  }
+  
+  @DeleteMapping("/api/user/{userId}")
+  public void deleteUser(@PathVariable("userId") int id) {
+    repository.deleteById(id);
   }
   
   @GetMapping("/api/session/set/{attr}/{value}")
@@ -74,15 +113,47 @@ public class UserService {
   }
   
   @PutMapping("/api/profile")
-  public User updateProfile(@RequestBody User user, HttpSession session) {
+  public User updateProfile(@RequestBody User newUser, HttpSession session) {
     User currentUser = (User) session.getAttribute("currentUser");  
     if (currentUser != null) {
-      if (user.getEmail() != null) {
-        currentUser.setEmail(user.getEmail());
+        if (newUser.getUsername() != null) {
+          currentUser.setUsername(newUser.getUsername());
+        }
+        if (newUser.getPassword() != null) {
+          currentUser.setPassword(newUser.getPassword());
+        }
+        if (newUser.getFirstName() != null) {
+          currentUser.setFirstName(newUser.getFirstName());
+        }
+        if (newUser.getLastName() != null) {
+          currentUser.setLastName(newUser.getLastName());
+        }
+        if (newUser.getEmail() != null) {
+          currentUser.setEmail(newUser.getEmail());
+        }
+        if (newUser.getUserType() != null) {
+          currentUser.setUserType(newUser.getUserType());
+        }
+        Optional<User> data = repository.findById(currentUser.getId());
+        User user = data.get(); // get user data
+        user = currentUser;
+        User u = repository.save(user); // save updated user in database
+        return currentUser; // return updated user
+        } else {
+        return null;
       }
-      return currentUser;
+  } 
+
+  
+  @PostMapping("/api/register")
+  public User register(@RequestBody User user, HttpSession session) {
+    List<User> sameUsername = (List<User>) repository.findUserByUsername(user.getUsername());
+    if (sameUsername == null || sameUsername.isEmpty()) {
+      User u = repository.save(user);
+      session.setAttribute("currentUser", u);
+      return u;
     } else {
-      return null;
+      throw new ConflictException();
     }
   }
   
@@ -95,7 +166,7 @@ public class UserService {
       session.setAttribute("currentUser", u);
       return u;
     } else {
-      return null;
+      throw new ConflictException();
     }
   }
 }

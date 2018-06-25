@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.wd18finalproj.models.users.Parent;
 import com.example.wd18finalproj.models.users.Student;
 import com.example.wd18finalproj.models.users.Tutor;
+import com.example.wd18finalproj.models.users.User;
 import com.example.wd18finalproj.repositories.users.TutorRepository;
+import com.example.wd18finalproj.repositories.users.UserRepository;
 
 @ResponseStatus(HttpStatus.CONFLICT)
 class ConflictException extends RuntimeException {
@@ -28,67 +30,85 @@ class ConflictException extends RuntimeException {
 }
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4000", maxAge = 3600, allowCredentials = "true")
 public class TutorService {
+  @Autowired
+  UserRepository userRepository;
   @Autowired
   TutorRepository repository;
   
-  @GetMapping("/api/session/set/{attr}/{value}")
-  public String setSessionAttribute(@PathVariable("attr") String attr,
-      @PathVariable("value") String value, HttpSession session) {
-    session.setAttribute(attr, value);
-    return attr + " = " + value;
-  }
-  
-  @GetMapping("/api/session/get/{attr}")
-  public String getSessionAttribute(@PathVariable ("attr") String attr, HttpSession session) {
-    return (String) session.getAttribute(attr);
-  }
-  
-  @GetMapping("/api/session/invalidate")
-  public String invalidateSession(HttpSession session) {
-    session.invalidate();
-  return "session invalidated";
-  }
-  
-  @PostMapping("/api/logout")
-  public void logout(HttpSession session) {
-    session.invalidate();
-  }
   
   @DeleteMapping("/api/tutor/{userId}")
   public void deleteTutor(@PathVariable("userId") int id) {
     repository.deleteById(id);
   }
   
-  @GetMapping("/api/profile")
-  public Tutor profile(HttpSession session) {
-    Tutor currentUser = (Tutor) session.getAttribute("currentUser");  
+  @GetMapping("/api/profile/tutor")
+  public User profile(HttpSession session) {
+    User currentUser = (User) session.getAttribute("currentUser");  
     return currentUser;
   }
   
-  @PutMapping("/api/profile")
-  public Tutor updateProfile(@RequestBody Tutor user, HttpSession session) {
-    Tutor currentUser = (Tutor) session.getAttribute("currentUser");  
+  @PutMapping("/api/profile/tutor")
+  public User updateProfile(@RequestBody Tutor newUser, HttpSession session) {
+    User currentUser = (User) session.getAttribute("currentUser");  
     if (currentUser != null) {
-      if (user.getEmail() != null) {
-        currentUser.setEmail(user.getEmail());
+      Optional<Tutor> data = repository.findById(currentUser.getId());
+      Tutor user = data.get(); // get user data
+        if (newUser.getUsername() != null) {
+        user.setUsername(newUser.getUsername());
+        }
+        if (newUser.getPassword() != null) {
+          user.setPassword(newUser.getPassword());
+        }
+        if (newUser.getFirstName() != null) {
+          user.setFirstName(newUser.getFirstName());
+        }
+        if (newUser.getLastName() != null) {
+          user.setLastName(newUser.getLastName());
+        }
+        if (newUser.getEmail() != null) {
+          user.setEmail(newUser.getEmail());
+        }
+        if (newUser.getUserType() != null) {
+          user.setUserType(newUser.getUserType());
+        }
+        if (newUser.getStreet() != null) {
+          user.setStreet(newUser.getStreet());
+        }
+        if (newUser.getCity() != null) {
+          user.setCity(newUser.getCity());
+        }
+        if (newUser.getState() != null) {
+          user.setState(newUser.getState());
+        }
+        if (newUser.getZipcode() != 0) {
+          user.setZipcode(newUser.getZipcode());
+        }
+        currentUser = user;
+        Tutor u = repository.save(user); // save updated user in database
+        return user; // return updated user
+        } else {
+        return null;
       }
-      return currentUser;
-    } else {
-      return null;
-    }
-  }
+  } 
   
-  @PostMapping("/api/tutor")
-  public Tutor register(@RequestBody Tutor tutor) {
-    List<Tutor> sameUsername = (List<Tutor>) repository.findUserByUsername(tutor.getUsername());
+  @PostMapping("/api/register/tutor")
+  public Tutor register(@RequestBody Tutor tutor, HttpSession session) {
+    List<User> sameUsername = (List<User>) userRepository.findUserByUsername(tutor.getUsername());
     if (sameUsername == null || sameUsername.isEmpty()) {
       Tutor u = repository.save(tutor);
+      session.setAttribute("currentUser", u);
       return u;
     } else {
       throw new ConflictException();
     }
+  }
+  
+  @PostMapping("/api/tutor")
+  public Tutor createTutor(@RequestBody Tutor tutor) {
+      Tutor u = repository.save(tutor);
+      return u;
   }
   
   @GetMapping("/api/tutor?street={street}&city={city}&state={state}&zipcode={zipcode}")
@@ -97,11 +117,12 @@ public class TutorService {
   }
   
   @PostMapping("/api/login/tutor")
-  public Tutor login(@RequestBody Tutor tutor) {
+  public Tutor login(@RequestBody Tutor tutor, HttpSession session) {
     List<Tutor> goodLogin =
         (List<Tutor>) repository.findUserByCredentials(tutor.getUsername(), tutor.getPassword());
       if (goodLogin != null || !(goodLogin.isEmpty())) {
       Tutor u = goodLogin.get(0);
+      session.setAttribute("currentUser", u);
       return u;
     } else {
       return null;
@@ -166,5 +187,23 @@ public class TutorService {
     } else {
       return null;
     }
+  }
+  
+  @GetMapping("/api/tutor/session/set/{attr}/{value}")
+  public String setSessionAttribute(@PathVariable("attr") String attr,
+      @PathVariable("value") String value, HttpSession session) {
+    session.setAttribute(attr, value);
+    return attr + " = " + value;
+  }
+  
+  @GetMapping("/api/tutor/session/get/{attr}")
+  public String getSessionAttribute(@PathVariable ("attr") String attr, HttpSession session) {
+    return (String) session.getAttribute(attr);
+  }
+  
+  @GetMapping("/api/tutor/session/invalidate")
+  public String invalidateSession(HttpSession session) {
+    session.invalidate();
+  return "session invalidated";
   }
 }
