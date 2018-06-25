@@ -141,7 +141,7 @@ public class StudentService {
   }
   
   @PostMapping("/api/student")
-  public Student createTutor(@RequestBody Student student) {
+  public Student createStudent(@RequestBody Student student) {
       Student u = repository.save(student);
       return u;
   }

@@ -121,18 +121,18 @@ public class ParentService {
   }
   
   @PostMapping("/api/parent/{parentId}/children")
-  public List<Student> addStudent(@PathVariable("parentId") int parentId, @RequestBody Student student) {
+  public Student addStudent(@PathVariable("parentId") int parentId, @RequestBody Student student) {
     Optional<Parent> data = repository.findById(parentId);
     if (data.isPresent()) {
       Parent user = data.get(); // get user database
-      /*List<Parent> parents = new ArrayList<Parent>();
+      List<Parent> parents = new ArrayList<Parent>();
       parents.add(user);
-      student.setParents(parents);*/
+      student.setParents(parents);
       List<Student> students = new ArrayList<Student>();
       students.add(student);
       user.setChildren(students);
       repository.save(user);
-      return user.getChildren();
+      return student;
     } else {
       return null;
     }
