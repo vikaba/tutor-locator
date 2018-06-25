@@ -1,0 +1,56 @@
+<div class = "container-fluid">
+  <h1>User Admin</h1>
+  <table>
+    <thead>
+    <tr>
+      <th> Username </th>
+      <th> Password </th>
+      <th> First Name </th>
+      <th> Last Name </th>
+      <th> Role </th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tr>
+      <th><input [(ngModel)]="username"
+                 placeholder="username"
+                 class="form-control"></th>
+      <th><input [(ngModel)]="password"
+                 placeholder="password"
+                 class="form-control"
+                 id = "password"
+                 type="password"/></th>
+      <th><input [(ngModel)]="firstName"
+                 placeholder="First Name"
+                 class="form-control"></th>
+      <th><input [(ngModel)]="lastName"
+                 placeholder="Last Name"
+                 class="form-control"></th>
+      <th><select [(ngModel)]="userType" class="form-control" id = "userType">
+        <option selected value = "admin">admin</option>
+        <option value = "tutor">tutor</option>
+        <option value = "parent">parent</option>
+        <option value = "student">student</option>
+      </select></th>
+      <th><button (click)="createUser(username, password, firstName, lastName, userType)" class="btn btn-success btn-block">
+        + </button></th>
+      <th><button (click)="confirmUpdate()" class="btn btn-success btn-block">
+        update</button></th>
+    </tr>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{user.username}}</td>
+      <td>{{user.password}}</td>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.userType}}</td>
+      <th><button (click)="updateUser(user.id, user.username, user.password, user.firstName, user.lastName, user.userType)"
+                  class="btn btn-primary btn-block">update</button></th>
+      <th> <button (click)="deleteUser(user.id)"
+                   class="btn btn-danger btn-block">x</button> </th>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,116 @@
+<div class="container-fluid">
+  <h1>Profile</h1>
+
+  <div class="form-group">
+  <label for="username">Username</label>
+  <input [(ngModel)]="username"
+         [ngModelOptions]="{standalone: true}"
+         placeholder="username"
+         class="form-control"
+         id="username"readonly/>
+  </div>
+
+  <div class="form-group">
+  <label for="userType">Role</label>
+  <select [(ngModel)]="userType" [ngModelOptions]="{standalone: true}" class="form-control" id = "userType" disabled>
+    <option selected value = "student">student</option>
+    <option value = "tutor">tutor</option>
+    <option value = "parent">parent</option>
+    <option value = "admin">admin</option>
+  </select>
+  </div>
+
+  <div class="form-group">
+  <label for="firstName">First Name</label>
+  <input [(ngModel)]="firstName"
+         [ngModelOptions]="{standalone: true}"
+         placeholder="first name"
+         class="form-control"
+         id="firstName"/>
+  </div>
+
+  <div class="form-group">
+  <label for="lastName">Last Name</label>
+  <input [(ngModel)]="lastName"
+         [ngModelOptions]="{standalone: true}"
+         placeholder="lastName"
+         class="form-control"
+         id = "lastName" />
+  </div>
+
+  <div class="form-group">
+  <label for="email">Email</label>
+  <input [(ngModel)]="email"
+         [ngModelOptions]="{standalone: true}"
+         placeholder="email"
+         class="form-control"
+         id = "email"/>
+  </div>
+
+  <div class="form-group" *ngIf = "userType === 'tutor'">
+  <label for="street">Street Address</label>
+  <input [(ngModel)]="street"
+         [ngModelOptions]="{standalone: true}"
+         placeholder="903 Massachusetts Ave"
+         class="form-control"
+         id = "street"/>
+  </div>
+
+  <div class="form-group" *ngIf = "userType === 'tutor'">
+  <label for="city">City</label>
+  <input [(ngModel)]="city"
+         [ngModelOptions]="{standalone: true}"
+         placeholder="Boston"
+         class="form-control"
+         id = "city"/>
+  </div>
+
+  <div class="form-group" *ngIf = "userType === 'tutor'">
+  <label for="state">State</label>
+  <input [(ngModel)]="state"
+         [ngModelOptions]="{standalone: true}"
+         placeholder="MA"
+         class="form-control"
+         id = "state"/>
+  </div>
+
+  <div class="form-group" *ngIf = "userType === 'tutor'">
+  <label for="zipcode">Zip Code</label>
+  <input [(ngModel)]="zipcode"
+         [ngModelOptions]="{standalone: true}"
+         placeholder="02115"
+         class="form-control"
+         id = "zipcode"/>
+  </div>
+
+  <button (click)="update()"
+          class="btn btn-success btn-block">
+    Update
+  </button>
+
+  <button *ngIf = "userType === 'admin'" routerLink="/user-admin"
+          class="btn btn-outline-primary btn-block">
+    User Admin
+  </button>
+
+  <button *ngIf = "userType === 'student'" routerLink="/parent"
+          class="btn btn-outline-primary btn-block">
+    Student Dashboard
+  </button>
+
+  <button *ngIf = "userType === 'parent'" routerLink="/student"
+          class="btn btn-outline-primary btn-block">
+    Parent Dashboard
+  </button>
+
+  <button *ngIf = "userType === 'tutor'" routerLink="/tutor"
+          class="btn btn-outline-primary btn-block">
+    Tutor Dashboard
+  </button>
+
+  <button (click)="logout()"
+          class="btn btn-danger btn-block">
+    Logout
+  </button>
+
+</div>
