@@ -16,6 +16,9 @@ import { UserAdminComponent } from './user-admin/user-admin.component';
 import {ParentServiceClient} from './services/parent.service.client';
 import {StudentServiceClient} from './services/student.service.client';
 import {TutorServiceClient} from './services/tutor.service.client';
+import { ApptMakerComponent } from './appt-maker/appt-maker.component';
+import {AppointmentServiceClient} from './services/appointment.service.client';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import {TutorServiceClient} from './services/tutor.service.client';
     ProfileComponent,
     ParentComponent,
     UserAdminComponent,
-    TutorSearchComponent
+    TutorSearchComponent,
+    ApptMakerComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,8 @@ import {TutorServiceClient} from './services/tutor.service.client';
     ParentServiceClient,
     StudentServiceClient,
     TutorServiceClient,
-    SearchServiceClient
+    SearchServiceClient,
+    AppointmentServiceClient
   ],
   bootstrap: [AppComponent]
 })

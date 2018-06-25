@@ -14,7 +14,6 @@ export class TutorSearchComponent implements OnInit {
   // credits: https://developers.google.com/maps/documentation/javascript/geocoding
   geocoder;
   tutors;
-  results;
   tutorAddress;
   map;
   constructor(private tutorSearchService: SearchServiceClient) { }
@@ -49,15 +48,7 @@ export class TutorSearchComponent implements OnInit {
         alert('Address could not be found');
       }
     });
-    // this.tutorSearchService.findLocation(tutorAddress)
-    //   .then(results => this.results = results)
-    //   .then(function() {
-    //     this.map.setCenter(this.results[0].geometry.location);
-    //     const marker = new google.maps.Marker({
-    //       map: this.map,
-    //       position: this.results[0].geometry.location
-    //     });
-    //   });
+
   }
 
   ngOnInit() {
