@@ -1,0 +1,42 @@
+<body class="text-center">
+<div class="container-fluid">
+  <form class="form-signin">
+  <h1>Login</h1>
+
+  <div class="form-group row">
+    <input [(ngModel)]="username"
+           [ngModelOptions]="{standalone: true}"
+           placeholder="username"
+           class="form-control"/>
+  </div>
+
+  <div class="form-group row">
+    <input [(ngModel)]="password"
+           [ngModelOptions]="{standalone: true}"
+           placeholder="password"
+           class="form-control"
+           type="password"/>
+  </div>
+
+  <div class="form-group row">
+    <button (click)="login(username, password)"
+            class="btn btn-primary btn-block">
+      Login
+    </button>
+  </div>
+
+  <div class="form-group row">
+      <button routerLink="/register"
+              class="btn btn-outline-dark btn-block">
+        Register
+      </button>
+      <button routerLink="/home"
+              class="btn btn-outline-dark btn-block">
+        Home
+      </button>
+  </div>
+
+
+  </form>
+</div>
+</body>

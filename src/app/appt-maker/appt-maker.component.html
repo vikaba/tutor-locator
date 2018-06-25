@@ -1,0 +1,50 @@
+<h2>Scheduler</h2>
+
+<div class="container">
+  <table>
+    <thead>
+    <tr>
+      <th>Student</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Subject</th>
+      <th>Type</th>
+    </tr>
+    <tr>
+      <th><input [(ngModel)]="studentName"
+                 placeholder="Student"
+                 class="form-control"/></th>
+      <th><input [(ngModel)]="startTime"
+                 placeholder="Start"
+                 class="form-control"/></th>
+      <th><input [(ngModel)]="endTime"
+                 placeholder="End"
+                 class="form-control"/></th>
+      <th><input [(ngModel)]="subject"
+                 placeholder="Subject"
+                 class="form-control"/></th>
+      <th><select [(ngModel)]="ApptType" class="form-control">
+        <option value="VIRTUAL">Virtual</option>
+        <option value="IN-PERSON">In-Person</option>
+      </select></th>
+      <th><span class="float-right" style="white-space: nowrap">
+      			<button (click)="createAppointment(studentName, startTime, endTime, subject, ApptType)" class="btn btn-primary">Add Appointment</button>
+  				</span></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let appointment of appointments">
+      <td>{{appointment.student}}</td>
+      <td>{{appointment.startTime}}</td>
+      <td>{{appointment.endTime}}</td>
+      <td>{{appointment.subject}}</td>
+      <td>{{appointment.type}}</td>
+      <td><button (click)="deleteAppointment(appointment.id)" class="btn btn-danger">Delete</button>
+      </td>
+      <td><button (click)="schedule(appointment.id, studentName,startTime, endTime, subject, ApptType)" class="btn btn-primary">Schedule</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

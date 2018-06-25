@@ -1,0 +1,28 @@
+h1 {
+  text-align:center;
+}
+
+body {
+  height: 100%;
+}
+
+.button-box {
+  text-align:center;
+  margin-top:10px;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
