@@ -32,6 +32,13 @@ export class ParentServiceClient {
     });
   }
 
+  findAllChildrenForParent(parentId) {
+    const url = 'http://localhost:8080/api/parent/' + parentId + '/children';
+    return fetch(url)
+      .then(response =>
+        response.json());
+  }
+
   findAllParents() {
     const url = 'http://localhost:8080/api/parent';
     return fetch(url)
@@ -89,6 +96,19 @@ export class ParentServiceClient {
     return fetch('http://localhost:8080/api/logout', {
       method: 'post',
       credentials: 'include'
+    });
+  }
+
+  addStudent(parentId, student) {
+    console.log(student);
+    return fetch('http://localhost:8080/api/parent/' + parentId + '/children',  {
+      method: 'post',
+      body: JSON.stringify(student),
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      }}).then(function (response) {
+      return response.json();
     });
   }
 

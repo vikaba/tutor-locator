@@ -4,6 +4,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import {UserAdminComponent} from './user-admin/user-admin.component';
+import {ParentComponent} from './parent/parent.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -12,6 +13,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'profile', component: ProfileComponent},
   { path: 'user-admin', component: UserAdminComponent},
+  {path: 'parent', component: ParentComponent},
   { path: '**', component: HomeComponent} // last
 ];
 export const routing = RouterModule.forRoot(appRoutes);

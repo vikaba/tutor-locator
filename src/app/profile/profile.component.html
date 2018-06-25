@@ -93,12 +93,12 @@
     User Admin
   </button>
 
-  <button *ngIf = "userType === 'student'" routerLink="/parent"
+  <button *ngIf = "userType === 'student'" routerLink="/student"
           class="btn btn-outline-primary btn-block">
     Student Dashboard
   </button>
 
-  <button *ngIf = "userType === 'parent'" routerLink="/student"
+  <button *ngIf = "userType === 'parent'" routerLink="/parent"
           class="btn btn-outline-primary btn-block">
     Parent Dashboard
   </button>
