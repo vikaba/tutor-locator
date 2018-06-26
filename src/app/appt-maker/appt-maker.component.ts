@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AppointmentServiceClient} from '../services/appointment.service.client';
-import {TutorServiceClient} from '../services/tutor.service.client';
+import {UserServiceClient} from '../services/user.service.client';
 
 @Component({
   selector: 'app-appt-maker',
@@ -10,19 +10,18 @@ import {TutorServiceClient} from '../services/tutor.service.client';
 })
 export class ApptMakerComponent implements OnInit {
 
-  studentName;
+  name;
   startTime;
   endTime;
   apptType;
-  subject;
-  username = '';
   appointments = [];
   tutorId;
-  tutor;
+  studentId = null;
+  userType;
 
   constructor(private aRoute: ActivatedRoute,
               private service: AppointmentServiceClient,
-              private tService: TutorServiceClient) {
+              private uService: UserServiceClient) {
     this.aRoute.params.subscribe(params => this.loadAppt(params['userId']));
   }
 
@@ -30,28 +29,44 @@ export class ApptMakerComponent implements OnInit {
     this.tutorId = userId;
     this.service.findTutorApptByID(userId)
       .then(appointments => this.appointments = appointments);
-    this.tService.findUserById(this.tutorId)
-      .then(tutor => this.tutor = tutor);
-    console.log(this.tutorId);
 
   }
 
-  createAppointment(startTime, endTime, apptType) {
-    this.service
-      .createAppt(startTime, endTime, this.tutor, apptType)
-      .then(() => {
-        this.loadAppt(this.tutorId);
-      });
+  createAppointment(name, startTime, endTime, apptType) {
+    if (this.studentId === null) {
+      this.service
+        .createAppt(name, startTime, endTime, this.tutorId, apptType)
+        .then(() => {
+          this.loadAppt(this.tutorId);
+        });
+    } else {
+      alert("Please contact your tutor: Only tutors can create appts");
+    }
   }
 
-  schedule(apptId, startTime, endTime, apptType) {
-    this.service.scheduleAppt(apptId, startTime, endTime, this.tutor, apptType);
+  schedule(apptId) {
+    if (this.studentId === null) {
+      alert("Only students are allowed to schedule");
+    } else {
+      this.service.scheduleAppt(apptId, this.studentId)
+        .then(function() {
+          alert('You have been scheduled');
+        });
+    }
   }
   deleteAppointment(apptId) {
     this.service.deleteAppt(apptId)
       .then(() => this.loadAppt(this.tutorId));
   }
   ngOnInit() {
+    this.uService.profile()
+      .then(user => {
+          this.userType = user.userType;
+          if (this.userType === 'student') {
+            this.studentId = user.id;
+          }
+        }
+      );
   }
 
 }

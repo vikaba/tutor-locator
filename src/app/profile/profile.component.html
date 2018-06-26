@@ -83,6 +83,18 @@
          id = "zipcode"/>
   </div>
 
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let appointment of appointments">
+       Appointment: {{appointment.name}} |
+       Start: {{appointment.startTime}} |
+       End: {{appointment.endTime}} |
+       Location: {{appointment.apptType}}
+    </li>
+  </ul>
+  <button (click)="loadAppts()"
+          class="btn btn-primary btn-block">
+    Appointments
+  </button>
   <button (click)="update()"
           class="btn btn-success btn-block">
     Update

@@ -4,42 +4,47 @@
   <table>
     <thead>
     <tr>
+      <th>Appointment Name</th>
       <th>Start Time</th>
       <th>End Time</th>
       <th>Type</th>
     </tr>
     <tr>
-      <th><input type="date"
+      <th><input type="text"
+                 placeholder="Mary Sue Math Appt"
+                 [(ngModel)]="name"
+                 class="form-control"/> </th>
+      <th><input type="datetime-local"
+                 placeholder="yyyy-mm-dd hh:ii"
                  [(ngModel)]="startTime"
-                 placeholder="Start"
                  class="form-control"/></th>
-      <th><input type="date"
+      <th><input type="datetime-local"
+                 placeholder="yyyy-mm-dd hh:ii"
                  [(ngModel)]="endTime"
-                 placeholder="End"
                  class="form-control"/></th>
-      <!--<th><input [(ngModel)]="subject"-->
-                 <!--placeholder="Subject"-->
-                 <!--class="form-control"/></th>-->
       <th><select [(ngModel)]="apptType" class="form-control">
         <option value="virtual">Virtual</option>
         <option value="inPerson">In-Person</option>
       </select></th>
       <th><span class="float-right" style="white-space: nowrap">
-      			<button (click)="createAppointment(startTime, endTime, apptType)" class="btn btn-primary">Add Appointment</button>
+      			<button (click)="createAppointment(name, startTime, endTime, apptType)" class="btn btn-primary">Add Appointment</button>
   				</span></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let appointment of appointments">
+      <td>{{appointment.name}}</td>
       <td>{{appointment.startTime}}</td>
       <td>{{appointment.endTime}}</td>
-      <td>{{appointment.type}}</td>
+      <td>{{appointment.apptType}}</td>
       <td><button (click)="deleteAppointment(appointment.id)" class="btn btn-danger">Delete</button>
       </td>
-      <td><button (click)="schedule(appointment.id, startTime, endTime, apptType)" class="btn btn-primary">Schedule</button>
+      <td><button (click)="schedule(appointment.id)" class="btn btn-primary">Schedule</button>
       </td>
     </tr>
     </tbody>
   </table>
+
+  <a routerLink="/home" class="btn btn-outline-primary btn-block">Home</a>
 </div>
 

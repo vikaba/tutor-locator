@@ -6,7 +6,7 @@ export class UserServiceClient {
   }
 
   profile() {
-    console.log('profile')
+    console.log('profile');
     return fetch('http://localhost:8080/api/profile',
       {
         credentials: 'include', // include, same-origin, *omit

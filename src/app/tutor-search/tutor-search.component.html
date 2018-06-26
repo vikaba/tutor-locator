@@ -10,8 +10,9 @@
     <h2>Tutors for address:</h2>
     <ul>
       <li *ngFor="let tutor of tutors">
-        <a routerLink="/scheduler/{{tutor.id}}">{{tutor.username}}</a>: <a (click)="searchForTutors(tutor.address)">{{tutor.address}}</a>
+        <a routerLink="/schedular/{{tutor.id}}">{{tutor.username}}</a>: <a (click)="searchForTutors(tutor.address)">{{tutor.address}}</a>
       </li>
     </ul>
 
+    <a routerLink="/home" class="btn btn-outline-primary btn-block">Home</a>
 
