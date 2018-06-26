@@ -31,24 +31,30 @@ export class ParentComponent implements OnInit {
     this.studentService.findStudentByUsername(toAddUsername)
       .then(student => {
         this.parentService.addStudent(this.parentId, student[0])
-      .then(() => {
-      this.loadChildren();
-    });
-      }
-      );
+          .then((response) => {
+          this.loadChildren();
+          });
+      });
   }
 
   loadChildren() {
-    console.log(this.parentId);
     this.parentService.findAllChildrenForParent(this.parentId)
-      .then(children => this.children = children);
+      .then(children => {
+        console.log(children);
+        this.children = children;
+      }
+        );
   }
 
   ngOnInit() {
     this.parentService.profile()
       .then((parent) => {
       this.parentId = parent.id;
-      }).then(this.loadChildren);
+      this.parentService.findAllChildrenForParent(this.parentId)
+          .then((children) => {
+            this.children = children;
+          });
+      });
   }
 
 }
