@@ -93,7 +93,7 @@
     User Admin
   </button>
 
-  <button *ngIf = "userType === 'student'" routerLink="/parent"
+  <button *ngIf = "userType === 'student'" routerLink="/search"
           class="btn btn-outline-primary btn-block">
     Student Dashboard
   </button>
@@ -103,7 +103,7 @@
     Parent Dashboard
   </button>
 
-  <button *ngIf = "userType === 'tutor'" routerLink="/tutor"
+  <button *ngIf = "userType === 'tutor'" routerLink="/schedular/{{userId}}"
           class="btn btn-outline-primary btn-block">
     Tutor Dashboard
   </button>

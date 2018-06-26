@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AppointmentServiceClient} from '../services/appointment.service.client';
+import {TutorServiceClient} from '../services/tutor.service.client';
 
 @Component({
   selector: 'app-appt-maker',
@@ -12,36 +13,43 @@ export class ApptMakerComponent implements OnInit {
   studentName;
   startTime;
   endTime;
-  ApptType;
+  apptType;
   subject;
-  userId = '';
+  username = '';
   appointments = [];
+  tutorId;
+  tutor;
 
   constructor(private aRoute: ActivatedRoute,
-              private service: AppointmentServiceClient) {
+              private service: AppointmentServiceClient,
+              private tService: TutorServiceClient) {
     this.aRoute.params.subscribe(params => this.loadAppt(params['userId']));
   }
 
   loadAppt(userId) {
-    this.userId = userId;
-    this.service.findTutorApptByID(this.userId)
+    this.tutorId = userId;
+    this.service.findTutorApptByID(userId)
       .then(appointments => this.appointments = appointments);
+    this.tService.findUserById(this.tutorId)
+      .then(tutor => this.tutor = tutor);
+    console.log(this.tutorId);
+
   }
 
-  createAppointment(studentName, startTime, endTime, subject, ApptType) {
+  createAppointment(startTime, endTime, apptType) {
     this.service
-      .createAppt(studentName, startTime, endTime, subject, ApptType)
+      .createAppt(startTime, endTime, this.tutor, apptType)
       .then(() => {
-        this.loadAppt(this.userId);
+        this.loadAppt(this.tutorId);
       });
   }
 
-  schedule(apptId, studentName, startTime, endTime, subject, ApptType) {
-    this.service.scheduleAppt(apptId, studentName, startTime, endTime, subject, ApptType);
+  schedule(apptId, startTime, endTime, apptType) {
+    this.service.scheduleAppt(apptId, startTime, endTime, this.tutor, apptType);
   }
   deleteAppointment(apptId) {
     this.service.deleteAppt(apptId)
-      .then(() => this.loadAppt(this.userId));
+      .then(() => this.loadAppt(this.tutorId));
   }
   ngOnInit() {
   }

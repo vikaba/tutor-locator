@@ -14,7 +14,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'profile', component: ProfileComponent},
   { path: 'user-admin', component: UserAdminComponent},
-  { path: 'schedular/:tutorId', component: ApptMakerComponent},
+  { path: 'schedular/:userId', component: ApptMakerComponent},
   { path: 'search', component: TutorSearchComponent},
   { path: '**', component: HomeComponent} // last
 ];
