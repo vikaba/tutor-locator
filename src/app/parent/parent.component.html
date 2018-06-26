@@ -17,22 +17,19 @@
       <button (click)="addStudent(toAddUsername)" class="btn btn-primary btn-block">
         + </button>
     </div>
-    <div class="col-8">
-      <h2> Appointments for Student </h2>
-      <div class="row">
-        <div *ngFor="let appt of appts" class="col-sm-3">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{appt.startTime}}</h5>
-              <p class="card-text">
-               Subject: {{appt.subject}} <br>
-               Tutor: {{appt.tutor.name}}
-               End Time: {{appt.endTime}}
-              </p>
-            </div>
-          </div>
+
+        <div class="col-8">
+          <h2> Appointments for Student </h2>
+          <div class="container-fluid">
+          <ul class="list-group">
+            <li *ngFor="let appt of appointments"
+                class="list-group-item">
+              Name: {{appt.name}} <br>
+              Where: {{appt.apptType}} <br>
+              End Time: {{appt.endTime}}
+            </li>
+          </ul>
+        </div>
         </div>
       </div>
-    </div>
-  </div>
 </div>

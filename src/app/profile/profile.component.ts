@@ -95,6 +95,12 @@ export class ProfileComponent implements OnInit {
          this.firstName = user.firstName;
          this.lastName = user.lastName;
          this.email = user.email;
+         if (user.userType === 'tutor') {
+           this.street = user.street;
+           this.city = user.city;
+           this.state = user.state;
+           this.zipcode = user.zipcode;
+         }
        }
          );
   }

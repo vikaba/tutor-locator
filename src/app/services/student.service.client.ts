@@ -6,7 +6,7 @@ export class StudentServiceClient {
   }
 
   findStudentByUsername(username) {
-    return fetch('http://localhost:8080/api/student?username=' + username)
+    return fetch('http://localhost:8080/api/student/username/' + username)
       .then(response => response.json());
   }
 
@@ -91,7 +91,7 @@ export class StudentServiceClient {
   }
 
   findApptsForStudent(studentId) {
-    return fetch('http://localhost:8080/api/student/' + studentId + '/appointments')
+    return fetch('http://localhost:8080/api/student/' + studentId + '/appt')
       .then(response => response.json());
   }
 

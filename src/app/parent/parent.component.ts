@@ -24,12 +24,17 @@ export class ParentComponent implements OnInit {
   selectStudent(studentId) {
     this.selectedStudentId = studentId;
     this.studentService.findApptsForStudent(studentId)
-      .then(appointments => this.appointments = appointments);
+      .then(appointments => {
+        console.log(appointments)
+        this.appointments = appointments;
+      });
   }
 
   addStudent(toAddUsername) {
+    console.log(toAddUsername);
     this.studentService.findStudentByUsername(toAddUsername)
       .then(student => {
+        console.log(student);
         this.parentService.addStudent(this.parentId, student[0])
           .then((response) => {
           this.loadChildren();
