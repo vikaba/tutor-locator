@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import com.example.wd18finalproj.models.Appointment;
 import com.example.wd18finalproj.models.Subject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "TUTOR")
@@ -21,6 +22,7 @@ public class Tutor extends User {
   int zipcode;
   
   @OneToMany(mappedBy = "tutor")
+  @JsonIgnore
   List<Appointment> appointments;
   
   @ManyToMany(mappedBy = "tutors")

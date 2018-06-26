@@ -24,6 +24,7 @@ public class Appointment {
 	private Subject subject;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Tutor tutor;
 	
 	@ManyToOne

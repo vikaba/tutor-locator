@@ -37,6 +37,33 @@ public class ParentService {
     repository.deleteById(id);
   }
   
+  @PostMapping("/api/parent/{parentId}/children")
+  public Student addStudent(@PathVariable("parentId") int parentId, @RequestBody Student student) {
+    Optional<Parent> data = repository.findById(parentId);
+    if (data.isPresent()) {
+      Parent user = data.get(); // get user database
+      //student.getParents().add(user);
+      List<Student> students = user.getChildren();
+      students.add(student);
+      user.setChildren(students);
+      repository.save(user);
+      return student;
+    } else {
+      return null;
+    }
+  }
+  
+  @GetMapping("/api/parent/{parentId}/children")
+  public List<Student> findAllChildrenForParent(@PathVariable("parentId") int parentId) {
+    Optional<Parent> data = repository.findById(parentId);
+    if(data.isPresent()) {
+      Parent parent = data.get();
+      return parent.getChildren();
+    } else {
+      return null;
+    }  
+  }
+  
   @GetMapping("/api/profile/parent")
   public User profile(HttpSession session) {
     User currentUser = (User) session.getAttribute("currentUser");  
@@ -103,39 +130,9 @@ public class ParentService {
       return u;
   }
   
-  @GetMapping("/api/parent/{parentId}/children")
-  public List<Student> findAllChildrenForParent(
-      @PathVariable("parentId") int parentId) {
-    Optional<Parent> data = repository.findById(parentId);
-    if(data.isPresent()) {
-      Parent parent = data.get();
-      return parent.getChildren();
-    } else {
-      return null;
-    }  
-  }
-  
   @GetMapping("/api/parent?username={username}")
   public List<Parent> findParentByUsername(String username) {
     return (List<Parent>) repository.findUserByUsername(username);
-  }
-  
-  @PostMapping("/api/parent/{parentId}/children")
-  public Student addStudent(@PathVariable("parentId") int parentId, @RequestBody Student student) {
-    Optional<Parent> data = repository.findById(parentId);
-    if (data.isPresent()) {
-      Parent user = data.get(); // get user database
-      List<Parent> parents = new ArrayList<Parent>();
-      parents.add(user);
-      student.setParents(parents);
-      List<Student> students = new ArrayList<Student>();
-      students.add(student);
-      user.setChildren(students);
-      repository.save(user);
-      return student;
-    } else {
-      return null;
-    }
   }
   
   @PutMapping("/api/parent/{userId}")

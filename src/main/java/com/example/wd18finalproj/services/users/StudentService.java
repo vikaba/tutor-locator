@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.wd18finalproj.models.Appointment;
+import com.example.wd18finalproj.models.users.Parent;
 import com.example.wd18finalproj.models.users.Student;
 import com.example.wd18finalproj.models.users.Tutor;
 import com.example.wd18finalproj.models.users.User;
+import com.example.wd18finalproj.repositories.users.ParentRepository;
 import com.example.wd18finalproj.repositories.users.StudentRepository;
+import com.example.wd18finalproj.repositories.users.TutorRepository;
 import com.example.wd18finalproj.repositories.users.UserRepository;
 
 @RestController
@@ -31,6 +34,8 @@ public class StudentService {
   StudentRepository repository;
   @Autowired
   UserRepository userRepository;
+  @Autowired
+  ParentRepository parentRepository;
   
   @DeleteMapping("/api/student/{userId}")
   public void deleteStudent(@PathVariable("userId") int id) {

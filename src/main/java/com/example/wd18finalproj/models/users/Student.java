@@ -2,6 +2,7 @@ package com.example.wd18finalproj.models.users;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 
 import com.example.wd18finalproj.models.Appointment;
 import com.example.wd18finalproj.models.Subject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "STUDENT")
@@ -21,7 +23,8 @@ public class Student extends User {
 	@ManyToMany(mappedBy = "students")
 	List<Subject> subjects;
 	
-	@ManyToMany//(mappedBy = "children")
+	@ManyToMany(mappedBy = "children")
+	@JsonIgnore
 	List<Parent> parents;
 
   public List<Appointment> getAppointments() {
@@ -47,9 +50,5 @@ public class Student extends User {
   public void setParents(List<Parent> parents) {
     this.parents = parents;
   }
-
-  
-	
-	
 	
 }
