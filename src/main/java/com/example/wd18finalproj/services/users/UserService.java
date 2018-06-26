@@ -22,9 +22,9 @@ import com.example.wd18finalproj.models.users.User;
 import com.example.wd18finalproj.repositories.users.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4000", maxAge = 3600, allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
 public class UserService {
-  @Autowired
+  @Autowired 
   UserRepository repository;
   
   @GetMapping("/api/user")

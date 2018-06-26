@@ -30,7 +30,7 @@ class ConflictException extends RuntimeException {
 }
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4000", maxAge = 3600, allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
 public class TutorService {
   @Autowired
   UserRepository userRepository;
@@ -145,8 +145,8 @@ public class TutorService {
   }
   
   @GetMapping("/api/tutor?username={username}")
-  public List<Tutor> findTutorByUsername(String username) {
-    return (List<Tutor>) repository.findUserByUsername(username);
+  public int findTutorByUsername(@PathVariable("username") String username) {
+    return repository.findUserByUsername(username).get().getId();
   }
   
   @PutMapping("/api/tutor/{userId}")

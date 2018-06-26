@@ -40,9 +40,32 @@ public class AppointmentService {
 		repository.deleteById(id);
 	}
 	
-	@PostMapping("/api/appt")
-	public Appointment createAppt(@RequestBody Appointment appt) {
-		return repository.save(appt);
+	@PostMapping("/api/tutor/{userId}/appt")
+	public Appointment createAppt(@PathVariable("userId") int tutorId, @RequestBody Appointment appt) {
+		Optional<Tutor> tData = tutorRepository.findById(tutorId);
+		if(tData.isPresent()) {
+			Tutor tutor = tData.get();
+			appt.setTutor(tutor);
+			return repository.save(appt);
+		}
+		else {
+			return null;
+		}
+	}
+	
+	@PostMapping("/api/student/{userId}/appt")
+	public Appointment addStudent(@PathVariable("userId") int studentId, @RequestBody int apptId) {
+		Optional<Student> sData = studentRepository.findById(studentId);
+		if(sData.isPresent()) {
+			Student student = sData.get();
+			Optional<Appointment> aData = repository.findById(apptId);
+			if(aData.isPresent()) {
+				Appointment appt = aData.get();
+				appt.setStudent(student);
+				return repository.save(appt);
+			}
+		}
+			return null;
 	}
 	
 	@GetMapping("/api/appt")

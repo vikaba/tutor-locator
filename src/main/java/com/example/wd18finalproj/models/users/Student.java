@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Student extends User {
   
   @OneToMany(mappedBy = "student")
+  @JsonIgnore
 	List<Appointment> appointments;
 	
 	@ManyToMany(mappedBy = "students")

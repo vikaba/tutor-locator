@@ -25,7 +25,7 @@ import com.example.wd18finalproj.repositories.users.StudentRepository;
 import com.example.wd18finalproj.repositories.users.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4000", maxAge = 3600, allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
 public class ParentService {
   @Autowired
   ParentRepository repository;
