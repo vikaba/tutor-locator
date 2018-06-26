@@ -17,6 +17,7 @@ public class Appointment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	private String name;
 	private Date startTime;
 	private Date endTime;
 	
@@ -24,9 +25,11 @@ public class Appointment {
 	private Subject subject;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Tutor tutor;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Student student;
 	
 	private ApptType apptType;
@@ -86,5 +89,13 @@ public class Appointment {
   public void setApptType(ApptType apptType) {
     this.apptType = apptType;
   }
+
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
 	
 }
