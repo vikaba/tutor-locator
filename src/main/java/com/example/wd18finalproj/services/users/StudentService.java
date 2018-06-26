@@ -77,7 +77,7 @@ public class StudentService {
     }
   }
   
-  @GetMapping("/api/student/{userId/appointments")
+  @GetMapping("/api/student/{userId}/appointments")
   public List<Appointment> findAppointmentsForStudent(@PathVariable("userId") int userId) {
     Optional<Student> data = repository.findById(userId);
     if (data.isPresent()) {
@@ -99,8 +99,8 @@ public class StudentService {
     return (List<Student>) repository.findAll();
   }
   
-  @GetMapping("/api/student?username={username}")
-  public List<Student> findStudentByUsername(String username) {
+  @GetMapping("/api/student/username/{username}")
+  public List<Student> findStudentByUsername(@PathVariable("username") String username) {
     return (List<Student>) repository.findUserByUsername(username);
   }
   

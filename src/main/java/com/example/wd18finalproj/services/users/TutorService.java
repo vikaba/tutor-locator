@@ -56,7 +56,7 @@ public class TutorService {
       Optional<Tutor> data = repository.findById(currentUser.getId());
       Tutor user = data.get(); // get user data
         if (newUser.getUsername() != null) {
-        user.setUsername(newUser.getUsername());
+          user.setUsername(newUser.getUsername());
         }
         if (newUser.getPassword() != null) {
           user.setPassword(newUser.getPassword());
@@ -85,8 +85,8 @@ public class TutorService {
         if (newUser.getZipcode() != 0) {
           user.setZipcode(newUser.getZipcode());
         }
-        currentUser = user;
         Tutor u = repository.save(user); // save updated user in database
+        session.setAttribute("currentUser", u);
         return user; // return updated user
         } else {
         return null;
@@ -146,7 +146,9 @@ public class TutorService {
   
   @GetMapping("/api/tutor?username={username}")
   public int findTutorByUsername(@PathVariable("username") String username) {
-    return repository.findUserByUsername(username).get().getId();
+    Optional<Tutor> data = repository.findUserByUsername(username);
+    Tutor tutor = data.get();
+    return tutor.getId();
   }
   
   @PutMapping("/api/tutor/{userId}")

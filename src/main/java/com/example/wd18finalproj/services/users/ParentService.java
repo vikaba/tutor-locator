@@ -44,7 +44,9 @@ public class ParentService {
       Parent user = data.get(); // get user database
       //student.getParents().add(user);
       List<Student> students = user.getChildren();
-      students.add(student);
+      if (!students.contains(student)) {
+        students.add(student);
+      }
       user.setChildren(students);
       repository.save(user);
       return student;
