@@ -5,6 +5,11 @@ export class StudentServiceClient {
       .then(response => response.json());
   }
 
+  findStudentByUsername(username) {
+    return fetch('http://localhost:8080/api/student?username=' + username)
+      .then(response => response.json());
+  }
+
   profile() {
     console.log('profile')
     return fetch('http://localhost:8080/api/profile/student',
@@ -83,6 +88,11 @@ export class StudentServiceClient {
         'content-type': 'application/json'
       }
     });
+  }
+
+  findApptsForStudent(studentId) {
+    return fetch('http://localhost:8080/api/student/' + studentId + '/appointments')
+      .then(response => response.json());
   }
 
   logout() {

@@ -1,3 +1,38 @@
-<p>
-  parent works!
-</p>
+<div class="container-fluid">
+  <h1> Parent Id: {{parentId}}</h1>
+  <div class="row">
+    <div class="col-4">
+      <ul class="list-group">
+        <li class="list-group-item active">Students</li>
+        <li *ngFor="let student of children"
+            class="list-group-item webdev"
+            [ngClass]="{'active': student.id === selectedStudentId}"
+            (click)="selectStudent(student.id)">
+          {{student.username}} ({{student.firstName}})
+        </li>
+      </ul>
+      <input [(ngModel)]="toAddUsername"
+             placeholder="student username"
+             class="form-control">
+      <button (click)="addStudent(toAddUsername)" class="btn btn-primary btn-block">
+        + </button>
+    </div>
+    <div class="col-8">
+      <h2> Appointments for Student </h2>
+      <div class="row">
+        <div *ngFor="let appt of appts" class="col-sm-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{appt.startTime}}</h5>
+              <p class="card-text">
+               Subject: {{appt.subject}} <br>
+               Tutor: {{appt.tutor.name}}
+               End Time: {{appt.endTime}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

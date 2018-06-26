@@ -1,39 +1,41 @@
-:root {
-  --jumbotron-padding-y: 3rem;
-}
-
-.jumbotron {
-  padding-top: var(--jumbotron-padding-y);
-  padding-bottom: var(--jumbotron-padding-y);
-  margin-bottom: 0;
-  background-color: #fff;
+html {
+  font-size: 14px;
 }
 @media (min-width: 768px) {
-  .jumbotron {
-    padding-top: calc(var(--jumbotron-padding-y) * 2);
-    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+  html {
+    font-size: 16px;
   }
 }
 
-.jumbotron p:last-child {
-  margin-bottom: 0;
+.mb-3, .my-3 {
+  margin-bottom: -0.5rem !important;
 }
 
-.jumbotron-heading {
-  font-weight: 300;
+.locations {
+  padding-top: 10px;
 }
 
-.jumbotron .container {
-  max-width: 40rem;
+.main {
+  background-image: url("https://78.media.tumblr.com/0ebe5b25fd811d5084fcd1be0b1b2c21/tumblr_nc3u4sSFdy1smv9jio1_500.gif");
+  background-size:100%;
 }
 
-footer {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+.container {
+  max-width: 960px;
 }
 
-footer p {
-  margin-bottom: .25rem;
+.pricing-header {
+  max-width: 700px;
+  height: 300px;
+  color: white;
+  font-weight: bold;
 }
 
-.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+.card-deck .card {
+  min-width: 220px;
+}
+
+.border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, 0); }
