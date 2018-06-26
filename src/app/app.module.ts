@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { TutorSearchComponent } from './tutor-search/tutor-search.component';
 import {FormsModule} from '@angular/forms';
+import {SearchServiceClient} from './services/tutorsearch.service.client';
 import { HomeComponent } from './home/home.component';
 import {routing} from './app.routing';
 import { LoginComponent } from './login/login.component';
@@ -14,6 +16,9 @@ import { UserAdminComponent } from './user-admin/user-admin.component';
 import {ParentServiceClient} from './services/parent.service.client';
 import {StudentServiceClient} from './services/student.service.client';
 import {TutorServiceClient} from './services/tutor.service.client';
+import { ApptMakerComponent } from './appt-maker/appt-maker.component';
+import {AppointmentServiceClient} from './services/appointment.service.client';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +28,9 @@ import {TutorServiceClient} from './services/tutor.service.client';
     RegisterComponent,
     ProfileComponent,
     ParentComponent,
-    UserAdminComponent
+    UserAdminComponent,
+    TutorSearchComponent,
+    ApptMakerComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +41,9 @@ import {TutorServiceClient} from './services/tutor.service.client';
     UserServiceClient,
     ParentServiceClient,
     StudentServiceClient,
-    TutorServiceClient
+    TutorServiceClient,
+    SearchServiceClient,
+    AppointmentServiceClient
   ],
   bootstrap: [AppComponent]
 })

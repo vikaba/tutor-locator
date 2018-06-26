@@ -3,6 +3,7 @@ import {UserServiceClient} from '../services/user.service.client';
 import {User} from '../models/user.model.client';
 import {Router} from '@angular/router';
 import {TutorServiceClient} from '../services/tutor.service.client';
+import {AppointmentServiceClient} from '../services/appointment.service.client';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +18,7 @@ export class ProfileComponent implements OnInit {
   lastName;
   userType;
   userId;
+  appointments = [];
 
   street;
   city;
@@ -25,6 +27,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private service: UserServiceClient,
               private tutorService: TutorServiceClient,
+              private apptService: AppointmentServiceClient,
               private router: Router) {
   }
 
@@ -36,7 +39,6 @@ export class ProfileComponent implements OnInit {
         email: this.email};
       this.service.updateProfileUser(user.firstName, user.lastName, user.email)
           .then(response => {
-            console.log()
             this.email = response.email;
             this.firstName = response.firstName;
             this.lastName = response.lastName;
@@ -52,7 +54,7 @@ export class ProfileComponent implements OnInit {
         state: this.state,
         zipcode: this.zipcode,
       };
-      console.log(tutor.id, tutor.street, tutor.city, tutor.state, tutor.zipcode)
+      console.log(tutor.id, tutor.street, tutor.city, tutor.state, tutor.zipcode);
       this.tutorService.updateProfileUser(tutor.id, tutor.firstName, tutor.lastName, tutor.email,
         tutor.street, tutor.city, tutor.state, tutor.zipcode)
         .then(response => {
@@ -73,6 +75,15 @@ export class ProfileComponent implements OnInit {
       .then(() =>
         this.router.navigate(['login']));
 
+  }
+  loadAppts() {
+    if (this.userType === 'student') {
+      this.apptService.findApptByStudentID(this.userId)
+        .then(appointments => this.appointments = appointments);
+    } else if (this.userType === 'tutor') {
+      this.apptService.findTutorApptByID(this.userId)
+        .then(appointments => this.appointments = appointments);
+    }
   }
 
   ngOnInit() {

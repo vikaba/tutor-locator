@@ -5,6 +5,11 @@ export class TutorServiceClient {
       .then(response => response.json());
   }
 
+  findTutorByName(username) {
+    return fetch('http://localhost:8080/api/tutor?username=' + username)
+      .then(response => response.json());
+  }
+
   profile() {
     console.log('profile')
     return fetch('http://localhost:8080/api/profile/tutor',

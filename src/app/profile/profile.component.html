@@ -83,6 +83,18 @@
          id = "zipcode"/>
   </div>
 
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let appointment of appointments">
+       Appointment: {{appointment.name}} |
+       Start: {{appointment.startTime}} |
+       End: {{appointment.endTime}} |
+       Location: {{appointment.apptType}}
+    </li>
+  </ul>
+  <button (click)="loadAppts()"
+          class="btn btn-primary btn-block">
+    Appointments
+  </button>
   <button (click)="update()"
           class="btn btn-success btn-block">
     Update
@@ -93,7 +105,7 @@
     User Admin
   </button>
 
-  <button *ngIf = "userType === 'student'" routerLink="/student"
+  <button *ngIf = "userType === 'student'" routerLink="/search"
           class="btn btn-outline-primary btn-block">
     Student Dashboard
   </button>
@@ -103,7 +115,7 @@
     Parent Dashboard
   </button>
 
-  <button *ngIf = "userType === 'tutor'" routerLink="/tutor"
+  <button *ngIf = "userType === 'tutor'" routerLink="/schedular/{{userId}}"
           class="btn btn-outline-primary btn-block">
     Tutor Dashboard
   </button>
