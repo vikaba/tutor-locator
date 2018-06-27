@@ -28,7 +28,7 @@ import com.example.wd18finalproj.repositories.users.TutorRepository;
 import com.example.wd18finalproj.repositories.users.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
+@CrossOrigin(origins = "https://limitless-hollows-40393.herokuapp.com/", maxAge = 3600, allowCredentials = "true")
 public class StudentService {
   @Autowired
   StudentRepository repository;

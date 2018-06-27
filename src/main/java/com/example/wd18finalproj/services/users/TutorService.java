@@ -30,7 +30,7 @@ class ConflictException extends RuntimeException {
 }
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
+@CrossOrigin(origins = "https://limitless-hollows-40393.herokuapp.com/", maxAge = 3600, allowCredentials = "true")
 public class TutorService {
   @Autowired
   UserRepository userRepository;
