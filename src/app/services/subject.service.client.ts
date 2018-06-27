@@ -1,18 +1,18 @@
 export class SubjectServiceClient {
   findSubjectByName(name) {
-    return fetch('http://localhost:8080/api/subject/' + name)
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/subject/' + name)
       .then(response => response.json());
   }
 
   findSubjects() {
-    return fetch('http://localhost:8080/api/subject')
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/subject')
       .then(response => response.json());
   }
 
 
   createSubject(title) {
     const subject = {title};
-    return fetch('http://localhost:8080/api/subject', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/subject', {
       method: 'post',
       body: JSON.stringify(subject),
       headers: {

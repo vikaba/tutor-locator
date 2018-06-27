@@ -1,5 +1,5 @@
 export class AppointmentServiceClient {
-  APPOINTMENT_API_URL = 'http://localhost:8080/api/tutor/USERID/appt';
+  APPOINTMENT_API_URL = 'https://web-dev-final-project-data.herokuapp.com/api/tutor/USERID/appt';
 
   findTutorApptByID(userId) {
     return fetch(this.APPOINTMENT_API_URL.replace('USERID', userId))
@@ -7,18 +7,18 @@ export class AppointmentServiceClient {
   }
 
   findSubjectForAppt(apptId) {
-    return fetch('http://localhost:8080/api/appt/' + apptId)
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/appt/' + apptId)
       .then(response => response.json());
   }
 
   findApptByStudentID(userId) {
-    return fetch('http://localhost:8080/api/student/' + userId + '/appt')
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/student/' + userId + '/appt')
       .then(response => response.json());
   }
 
   createAppt(name, subjectID, startTime, endTime, tutorID, apptType) {
     const appt = {name, startTime, endTime, apptType};
-    return fetch('http://localhost:8080/api/tutor/' + tutorID + '/subject/' + subjectID + '/appt', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/tutor/' + tutorID + '/subject/' + subjectID + '/appt', {
         method: 'post',
         body: JSON.stringify(appt),
         headers: {
@@ -29,7 +29,7 @@ export class AppointmentServiceClient {
 
 
   scheduleAppt(apptId, studentID) {
-    return fetch('http://localhost:8080/api/student/' + studentID + '/appt', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/student/' + studentID + '/appt', {
       method: 'post',
       body: JSON.stringify(apptId),
       headers: {
@@ -39,7 +39,7 @@ export class AppointmentServiceClient {
   }
 
   deleteAppt(apptId) {
-    return fetch('http://localhost:8080/api/appt/' + apptId, {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/appt/' + apptId, {
       method: 'delete'
     });
   }

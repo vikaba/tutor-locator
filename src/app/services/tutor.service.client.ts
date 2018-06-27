@@ -1,18 +1,18 @@
 export class TutorServiceClient {
 
   findUserById(userId) {
-    return fetch('http://localhost:8080/api/user/' + userId)
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/user/' + userId)
       .then(response => response.json());
   }
 
   findTutorByName(username) {
-    return fetch('http://localhost:8080/api/tutor?username=' + username)
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/tutor?username=' + username)
       .then(response => response.json());
   }
 
   profile() {
     console.log('profile')
-    return fetch('http://localhost:8080/api/profile/tutor',
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/profile/tutor',
       {
         credentials: 'include', // include, same-origin, *omit
       })
@@ -26,7 +26,7 @@ export class TutorServiceClient {
       password: password,
       userType: 'tutor'
     };
-    return fetch('http://localhost:8080/api/register/tutor', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/register/tutor', {
       body: JSON.stringify(user),
       credentials: 'include', // include, same-origin, *omit
       headers: {
@@ -38,7 +38,7 @@ export class TutorServiceClient {
   }
 
   findAllTutors() {
-    const url = 'http://localhost:8080/api/tutor';
+    const url = 'https://web-dev-final-project-data.herokuapp.com/api/tutor';
     return fetch(url)
       .then(response =>
         response.json());
@@ -52,7 +52,7 @@ export class TutorServiceClient {
       lastName: lastName,
       userType: 'tutor'
     };
-    return fetch('http://localhost:8080/api/tutor', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/tutor', {
       body: JSON.stringify(user),
       credentials: 'include', // include, same-origin, *omit
       headers: {
@@ -64,7 +64,7 @@ export class TutorServiceClient {
   }
 
   deleteUser(userId) {
-    return fetch('http://localhost:8080/api/tutor/' + userId,
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/tutor/' + userId,
       {
         method: 'DELETE',
         credentials: 'include'
@@ -80,7 +80,7 @@ export class TutorServiceClient {
       lastName: newLastName,
       userType: newUserType
     };
-    return fetch('http://localhost:8080/api/tutor/' + userId, {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/tutor/' + userId, {
       method: 'put',
       body: JSON.stringify(user),
       credentials: 'include',
@@ -101,7 +101,7 @@ export class TutorServiceClient {
       state: newState,
       zipcode: newZipcode
     };
-    return fetch('http://localhost:8080/api/profile/tutor', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/profile/tutor', {
       method: 'put',
       body: JSON.stringify(user),
       credentials: 'include',
@@ -115,7 +115,7 @@ export class TutorServiceClient {
   }
 
   logout() {
-    return fetch('http://localhost:8080/api/logout', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/logout', {
       method: 'post',
       credentials: 'include'
     });
@@ -126,7 +126,7 @@ export class TutorServiceClient {
       username: username,
       password: password
     };
-    return fetch('http://localhost:8080/api/login/tutor', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/login/tutor', {
       method: 'post',
       body: JSON.stringify(credentials),
       credentials: 'include',

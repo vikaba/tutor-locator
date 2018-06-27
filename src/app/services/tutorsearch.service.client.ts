@@ -1,7 +1,7 @@
 export class SearchServiceClient {
-  TUTOR_API_URL = 'http://localhost:8080/api/tutor';
+  TUTOR_API_URL = 'https://web-dev-final-project-data.herokuapp.com/api/tutor';
   TUTOR_ADDRESS_API =
-    'http://localhost:8080/api/tutor?street=STNAME&city=CNAME&state=STATENAME&zipcode=ZIPNAME';
+    'https://web-dev-final-project-data.herokuapp.com/api/tutor?street=STNAME&city=CNAME&state=STATENAME&zipcode=ZIPNAME';
 
 
   findLocation(tutorAddress) {

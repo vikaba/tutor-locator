@@ -1,18 +1,18 @@
 export class StudentServiceClient {
 
   findUserById(userId) {
-    return fetch('http://localhost:8080/api/user/' + userId)
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/user/' + userId)
       .then(response => response.json());
   }
 
   findStudentByUsername(username) {
-    return fetch('http://localhost:8080/api/student/username/' + username)
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/student/username/' + username)
       .then(response => response.json());
   }
 
   profile() {
     console.log('profile')
-    return fetch('http://localhost:8080/api/profile/student',
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/profile/student',
       {
         credentials: 'include', // include, same-origin, *omit
       })
@@ -26,7 +26,7 @@ export class StudentServiceClient {
       password: password,
       userType: role
     };
-    return fetch('http://localhost:8080/api/register/student', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/register/student', {
       body: JSON.stringify(user),
       credentials: 'include', // include, same-origin, *omit
       headers: {
@@ -38,7 +38,7 @@ export class StudentServiceClient {
   }
 
   findAllStudents() {
-    const url = 'http://localhost:8080/api/student';
+    const url = 'https://web-dev-final-project-data.herokuapp.com/api/student';
     return fetch(url)
       .then(response =>
         response.json());
@@ -52,7 +52,7 @@ export class StudentServiceClient {
       lastName: lastName,
       userType: 'student'
     };
-    return fetch('http://localhost:8080/api/student', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/student', {
       body: JSON.stringify(user),
       credentials: 'include', // include, same-origin, *omit
       headers: {
@@ -64,7 +64,7 @@ export class StudentServiceClient {
   }
 
   deleteUser(userId) {
-    return fetch('http://localhost:8080/api/student/' + userId,
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/student/' + userId,
       {
         method: 'DELETE',
         credentials: 'include'
@@ -80,7 +80,7 @@ export class StudentServiceClient {
       lastName: newLastName,
       userType: newUserType
     };
-    return fetch('http://localhost:8080/api/student/' + userId, {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/student/' + userId, {
       method: 'put',
       body: JSON.stringify(user),
       credentials: 'include',
@@ -91,12 +91,12 @@ export class StudentServiceClient {
   }
 
   findApptsForStudent(studentId) {
-    return fetch('http://localhost:8080/api/student/' + studentId + '/appt')
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/student/' + studentId + '/appt')
       .then(response => response.json());
   }
 
   logout() {
-    return fetch('http://localhost:8080/api/logout', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/logout', {
       method: 'post',
       credentials: 'include'
     });
@@ -107,7 +107,7 @@ export class StudentServiceClient {
       username: username,
       password: password
     };
-    return fetch('http://localhost:8080/api/login/student', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/login/student', {
       method: 'post',
       body: JSON.stringify(credentials),
       credentials: 'include',

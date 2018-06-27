@@ -1,13 +1,13 @@
 export class ParentServiceClient {
 
   findUserById(userId) {
-    return fetch('http://localhost:8080/api/user/' + userId)
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/user/' + userId)
       .then(response => response.json());
   }
 
   profile() {
     console.log('profile')
-    return fetch('http://localhost:8080/api/profile/parent',
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/profile/parent',
       {
         credentials: 'include', // include, same-origin, *omit
       })
@@ -21,7 +21,7 @@ export class ParentServiceClient {
       password: password,
       userType: 'parent'
     };
-    return fetch('http://localhost:8080/api/register/parent', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/register/parent', {
       body: JSON.stringify(user),
       credentials: 'include', // include, same-origin, *omit
       headers: {
@@ -33,7 +33,7 @@ export class ParentServiceClient {
   }
 
   deleteStudentFromParent(parentId, studentId) {
-    return fetch('http://localhost:8080/api/parent/' + parentId + '/children/' + studentId,
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/parent/' + parentId + '/children/' + studentId,
       {
         method: 'DELETE',
         credentials: 'include'
@@ -41,14 +41,14 @@ export class ParentServiceClient {
   }
 
   findAllChildrenForParent(parentId) {
-    const url = 'http://localhost:8080/api/parent/' + parentId + '/children';
+    const url = 'https://web-dev-final-project-data.herokuapp.com/api/parent/' + parentId + '/children';
     return fetch(url)
       .then(response =>
         response.json());
   }
 
   findAllParents() {
-    const url = 'http://localhost:8080/api/parent';
+    const url = 'https://web-dev-final-project-data.herokuapp.com/api/parent';
     return fetch(url)
       .then(response =>
         response.json());
@@ -62,7 +62,7 @@ export class ParentServiceClient {
       lastName: lastName,
       userType: 'parent'
     };
-    return fetch('http://localhost:8080/api/parent', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/parent', {
       body: JSON.stringify(user),
       credentials: 'include', // include, same-origin, *omit
       headers: {
@@ -74,7 +74,7 @@ export class ParentServiceClient {
   }
 
   deleteUser(userId) {
-    return fetch('http://localhost:8080/api/parent/' + userId,
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/parent/' + userId,
       {
         method: 'DELETE',
         credentials: 'include'
@@ -90,7 +90,7 @@ export class ParentServiceClient {
       lastName: newLastName,
       userType: newUserType
     };
-    return fetch('http://localhost:8080/api/parent/' + userId, {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/parent/' + userId, {
       method: 'put',
       body: JSON.stringify(user),
       credentials: 'include',
@@ -101,14 +101,14 @@ export class ParentServiceClient {
   }
 
   logout() {
-    return fetch('http://localhost:8080/api/logout', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/logout', {
       method: 'post',
       credentials: 'include'
     });
   }
 
   addStudent(parentId, student) {
-    return fetch('http://localhost:8080/api/parent/' + parentId + '/children',  {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/parent/' + parentId + '/children',  {
       method: 'post',
       body: JSON.stringify(student),
       credentials: 'include',
@@ -124,7 +124,7 @@ export class ParentServiceClient {
       username: username,
       password: password
     };
-    return fetch('http://localhost:8080/api/login/parent', {
+    return fetch('https://web-dev-final-project-data.herokuapp.com/api/login/parent', {
       method: 'post',
       body: JSON.stringify(credentials),
       credentials: 'include',
