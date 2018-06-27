@@ -33,7 +33,8 @@ export class RegisterComponent implements OnInit {
         .then((response) => {
         if (response.status === 200) {
           this.router.navigate(['profile']);
-        } else {
+        } else if (response.status !== 200) {
+          console.log(response.status)
           alert('username already exists');
           return;
         }
