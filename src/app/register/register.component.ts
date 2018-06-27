@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
       this.tutorService
         .register(username, password, 'tutor')
         .then((response) => {
-        if (response.status === 200) {
+        if (response.status !== 409) {
           this.router.navigate(['profile']);
         } else {
           console.log(response.status)
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
       this.parentService
         .register(username, password, 'parent')
         .then((response) => {
-          if (response.status === 200) {
+          if (response.status !== 409) {
             this.router.navigate(['profile']);
           } else {
             alert('username already exists');
@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
       this.studentService
         .register(username, password, 'student')
         .then((response) => {
-          if (response.status === 200) {
+          if (response.status !== 409) {
             this.router.navigate(['profile']);
           } else {
             alert('username already exists');
