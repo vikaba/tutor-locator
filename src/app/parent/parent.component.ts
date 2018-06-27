@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {ParentServiceClient} from '../services/parent.service.client';
 import {StudentServiceClient} from '../services/student.service.client';
 import {User} from '../models/user.model.client';
+import {Router} from '@angular/router';
 import {Appointment} from '../models/appointment.model.client';
 import {Student} from '../models/student.model.client';
+import {UserServiceClient} from "../services/user.service.client";
 
 @Component({
   selector: 'app-parent',
@@ -19,7 +21,9 @@ export class ParentComponent implements OnInit {
   parentId: number;
 
   constructor(private parentService: ParentServiceClient,
-              private studentService: StudentServiceClient) {}
+              private service: UserServiceClient,
+              private studentService: StudentServiceClient,
+              private router: Router) {}
 
   selectStudent(studentId) {
     this.selectedStudentId = studentId;
@@ -56,6 +60,14 @@ export class ParentComponent implements OnInit {
         this.children = children;
       }
         );
+  }
+
+  logout() {
+    this.service
+      .logout()
+      .then(() =>
+        this.router.navigate(['login']));
+
   }
 
   ngOnInit() {

@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
       this.tutorService
         .register(username, password, 'tutor')
         .then((response) => {
-        if (response.status !== 200) {
+        if (response.status === 200) {
           this.router.navigate(['profile']);
         } else {
           alert('username already exists');
