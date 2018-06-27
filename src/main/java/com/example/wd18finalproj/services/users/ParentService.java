@@ -31,10 +31,52 @@ public class ParentService {
   ParentRepository repository;
   @Autowired
   UserRepository userRepository;
+  @Autowired
+  StudentRepository studentRepository;
   
   @DeleteMapping("/api/parent/{userId}")
   public void deleteParent(@PathVariable("userId") int id) {
     repository.deleteById(id);
+  }
+  
+  @DeleteMapping("/api/parent/{parentId}/children/{studentId}")
+  public void deleteStudentFromParent(@PathVariable("parentId") int parentId,
+      @PathVariable("studentId") int studentId) {
+    Optional<Parent> parentData = repository.findById(parentId);
+    Optional<Student> studentData = studentRepository.findById(studentId);
+    if (parentData.isPresent()) {
+      if (studentData.isPresent()) {
+        Parent parent = parentData.get();
+        Student student = studentData.get();
+        List<Student> children = parent.getChildren();
+        children.remove(student);
+        parent.setChildren(children);
+        repository.save(parent);
+      }
+    }
+  }
+  
+  @GetMapping("/api/parent/{parentId}/children/{studentId}")
+  public Student findChildFromParentById(@PathVariable("parentId") int parentId,
+      @PathVariable("studentId") int studentId) {
+    Optional<Parent> data = repository.findById(parentId);
+    Optional<Student> studentData = studentRepository.findById(studentId);
+    if (data.isPresent()) {
+      Parent parent = data.get();
+      List<Student> children = parent.getChildren();
+      if (studentData.isPresent()) {
+        Student student = studentData.get();
+        if (children.contains(student)) {
+          return student;
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
   }
   
   @PostMapping("/api/parent/{parentId}/children")
