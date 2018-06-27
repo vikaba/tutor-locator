@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AppointmentServiceClient} from '../services/appointment.service.client';
 import {UserServiceClient} from '../services/user.service.client';
+import {SubjectServiceClient} from '../services/subject.service.client';
 
 @Component({
   selector: 'app-appt-maker',
@@ -18,10 +19,14 @@ export class ApptMakerComponent implements OnInit {
   tutorId;
   studentId = null;
   userType;
+  subjectTitle;
+  subject;
+  subjectID = null;
 
   constructor(private aRoute: ActivatedRoute,
               private service: AppointmentServiceClient,
-              private uService: UserServiceClient) {
+              private uService: UserServiceClient,
+              private subService: SubjectServiceClient) {
     this.aRoute.params.subscribe(params => this.loadAppt(params['userId']));
   }
 
@@ -29,19 +34,28 @@ export class ApptMakerComponent implements OnInit {
     this.tutorId = userId;
     this.service.findTutorApptByID(userId)
       .then(appointments => this.appointments = appointments);
-
   }
 
-  createAppointment(name, startTime, endTime, apptType) {
-    if (this.studentId === null) {
-      this.service
-        .createAppt(name, startTime, endTime, this.tutorId, apptType)
-        .then(() => {
-          this.loadAppt(this.tutorId);
-        });
-    } else {
-      alert("Please contact your tutor: Only tutors can create appts");
-    }
+  createAppointment(name, subjectTitle, startTime, endTime, apptType) {
+    this.subService.findSubjectByName(subjectTitle)
+      .then(subject => {
+        this.subjectID = subject.id;
+        console.log(this.subjectID);
+          if (this.studentId === null) {
+            this.service
+              .createAppt(name, this.subjectID, startTime, endTime, this.tutorId, apptType)
+              .then(() => {
+                this.loadAppt(this.tutorId);
+              });
+          } else {
+            alert("Please contact your tutor: Only tutors can create appts");
+          }
+        }
+      );
+  }
+  findSubjectForID(apptId) {
+    this.service.findSubjectForAppt(apptId)
+      .then(subject => this.subject = subject);
   }
 
   schedule(apptId) {

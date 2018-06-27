@@ -83,12 +83,36 @@
          id = "zipcode"/>
   </div>
 
-  <ul *ngIf = "userType === 'tutor' || userType === 'student'" class="list-group">
+  <div class="form-group" *ngIf = "userType === 'tutor'">
+    <input [(ngModel)]="subject"
+           [ngModelOptions]="{standalone: true}"
+           placeholder="Subject Title"
+           class="form-control"
+           id = "subject"/>
+
+  <br>
+  <button (click)="createSubject(subject)"
+          class="btn btn-outline-primary btn-block">
+    Add Subject
+  </button>
+    <br>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let subject of subjects">
+        Subject Title: {{subject.title}}
+      </li>
+    </ul>
+    <button (click)="loadSubjects()"
+            class="btn btn-primary btn-block">
+      Subjects
+    </button>
+  </div>
+
+  <ul class="list-group">
     <li class="list-group-item" *ngFor="let appointment of appointments">
-       Appointment: {{appointment.name}} |
-       Start: {{appointment.startTime}} |
-       End: {{appointment.endTime}} |
-       Location: {{appointment.apptType}}
+      Appointment: {{appointment.name}} |
+      Start: {{appointment.startTime}} |
+      End: {{appointment.endTime}} |
+      Location: {{appointment.apptType}}
     </li>
   </ul>
   <button *ngIf = "userType === 'tutor' || userType === 'student'" (click)="loadAppts()"

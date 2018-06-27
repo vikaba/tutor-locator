@@ -4,6 +4,7 @@ import {User} from '../models/user.model.client';
 import {Router} from '@angular/router';
 import {TutorServiceClient} from '../services/tutor.service.client';
 import {AppointmentServiceClient} from '../services/appointment.service.client';
+import {SubjectServiceClient} from '../services/subject.service.client';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +20,7 @@ export class ProfileComponent implements OnInit {
   userType;
   userId;
   appointments = [];
-
+  subjects;
   street;
   city;
   state;
@@ -28,6 +29,7 @@ export class ProfileComponent implements OnInit {
   constructor(private service: UserServiceClient,
               private tutorService: TutorServiceClient,
               private apptService: AppointmentServiceClient,
+              private subService: SubjectServiceClient,
               private router: Router) {
   }
 
@@ -84,6 +86,14 @@ export class ProfileComponent implements OnInit {
       this.apptService.findTutorApptByID(this.userId)
         .then(appointments => this.appointments = appointments);
     }
+  }
+  createSubject(name) {
+    this.subService.createSubject(name)
+      .then(() => this.loadAppts());
+  }
+  loadSubjects() {
+      this.subService.findSubjects()
+        .then(subjects => this.subjects = subjects);
   }
 
   ngOnInit() {

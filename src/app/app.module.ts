@@ -18,6 +18,7 @@ import {StudentServiceClient} from './services/student.service.client';
 import {TutorServiceClient} from './services/tutor.service.client';
 import { ApptMakerComponent } from './appt-maker/appt-maker.component';
 import {AppointmentServiceClient} from './services/appointment.service.client';
+import {SubjectServiceClient} from './services/subject.service.client';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {AppointmentServiceClient} from './services/appointment.service.client';
     StudentServiceClient,
     TutorServiceClient,
     SearchServiceClient,
-    AppointmentServiceClient
+    AppointmentServiceClient,
+    SubjectServiceClient
   ],
   bootstrap: [AppComponent]
 })

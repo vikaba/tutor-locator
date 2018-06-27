@@ -6,14 +6,19 @@ export class AppointmentServiceClient {
       .then(response => response.json());
   }
 
+  findSubjectForAppt(apptId) {
+    return fetch('http://localhost:8080/api/appt/' + apptId)
+      .then(response => response.json());
+  }
+
   findApptByStudentID(userId) {
     return fetch('http://localhost:8080/api/student/' + userId + '/appt')
       .then(response => response.json());
   }
 
-  createAppt(name, startTime, endTime, tutorID, apptType) {
+  createAppt(name, subjectID, startTime, endTime, tutorID, apptType) {
     const appt = {name, startTime, endTime, apptType};
-    return fetch('http://localhost:8080/api/tutor/' + tutorID + '/appt', {
+    return fetch('http://localhost:8080/api/tutor/' + tutorID + '/subject/' + subjectID + '/appt', {
         method: 'post',
         body: JSON.stringify(appt),
         headers: {
