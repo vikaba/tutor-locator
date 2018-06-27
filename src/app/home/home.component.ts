@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TutorServiceClient} from '../services/tutor.service.client';
 import {User} from "../models/user.model.client";
+import {SubjectServiceClient} from "../services/subject.service.client";
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ export class HomeComponent implements OnInit {
   subjects: string[] = [];
   locations: string[] = [];
 
-  constructor(private tutorService: TutorServiceClient) { }
+  constructor(private tutorService: TutorServiceClient,
+              private subjectService: SubjectServiceClient) { }
 
   loadTutors() {
     this.tutorService.findAllTutors()
@@ -21,15 +23,22 @@ export class HomeComponent implements OnInit {
         this.tutors = tutors;
         tutors.forEach(tutor => {
           this.locations.push(tutor.city);
-          tutor.subjects.forEach(subject => {
-            this.subjects.push(subject.title);
-          });
         });
       });
       }
 
+  loadSubjects() {
+    this.subjectService.findSubjects()
+      .then(subjects => {
+        subjects.forEach(subject => {
+          this.subjects.push(subject.title);
+        });
+      });
+  }
+
   ngOnInit() {
     this.loadTutors();
+    this.loadSubjects();
   }
 
 }

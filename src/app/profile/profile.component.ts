@@ -44,6 +44,7 @@ export class ProfileComponent implements OnInit {
             this.email = response.email;
             this.firstName = response.firstName;
             this.lastName = response.lastName;
+            alert('updated');
           });
     } else {
       const tutor = {
@@ -67,6 +68,7 @@ export class ProfileComponent implements OnInit {
           this.city = response.city;
           this.state = response.state;
           this.zipcode = response.zipcode;
+          alert('updated');
         });
     }
   }
