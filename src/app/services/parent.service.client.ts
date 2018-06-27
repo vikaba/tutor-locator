@@ -32,6 +32,14 @@ export class ParentServiceClient {
     });
   }
 
+  deleteStudentFromParent(parentId, studentId) {
+    return fetch('http://localhost:8080/api/parent/' + parentId + '/children/' + studentId,
+      {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+  }
+
   findAllChildrenForParent(parentId) {
     const url = 'http://localhost:8080/api/parent/' + parentId + '/children';
     return fetch(url)

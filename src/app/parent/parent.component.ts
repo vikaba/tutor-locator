@@ -34,11 +34,18 @@ export class ParentComponent implements OnInit {
     console.log(toAddUsername);
     this.studentService.findStudentByUsername(toAddUsername)
       .then(student => {
-        console.log(student);
         this.parentService.addStudent(this.parentId, student[0])
           .then((response) => {
           this.loadChildren();
+          this.toAddUsername = null;
           });
+      });
+  }
+
+  deleteStudent(studentId) {
+    this.parentService.deleteStudentFromParent(this.parentId, studentId)
+      .then(() => {
+        this.loadChildren();
       });
   }
 

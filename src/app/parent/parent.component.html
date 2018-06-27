@@ -8,7 +8,9 @@
             class="list-group-item webdev"
             [ngClass]="{'active': student.id === selectedStudentId}"
             (click)="selectStudent(student.id)">
-          {{student.username}} ({{student.firstName}})
+          {{student.username}} ({{student.firstName}} {{student.lastName}})
+          <button (click)="deleteStudent(student.id)" class="btn btn-danger float-right">
+            x </button>
         </li>
       </ul>
       <input [(ngModel)]="toAddUsername"
@@ -20,7 +22,6 @@
 
         <div class="col-8">
           <h2> Appointments for Student </h2>
-          <div class="container-fluid">
           <ul class="list-group">
             <li *ngFor="let appt of appointments"
                 class="list-group-item">
@@ -31,5 +32,4 @@
           </ul>
         </div>
         </div>
-      </div>
 </div>
