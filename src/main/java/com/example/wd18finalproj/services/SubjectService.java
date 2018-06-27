@@ -70,6 +70,16 @@ public class SubjectService {
     }  
   }
  
+  @GetMapping("/api/subject/{title}")
+  public Subject findSubjectByName(@PathVariable("title") String title) {
+    Optional<Subject> subs = subjectRepository.findSubjectByName(title);
+    if(subs.isPresent()) {
+    	return subs.get();
+    }
+    else {
+    	return null;
+    }
+  }
 
   
   @DeleteMapping("/api/subject/{subjectId}")

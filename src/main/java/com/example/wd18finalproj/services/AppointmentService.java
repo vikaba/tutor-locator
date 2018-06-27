@@ -18,6 +18,7 @@ import com.example.wd18finalproj.models.Subject;
 import com.example.wd18finalproj.models.users.Student;
 import com.example.wd18finalproj.models.users.Tutor;
 import com.example.wd18finalproj.repositories.AppointmentRepository;
+import com.example.wd18finalproj.repositories.SubjectRepository;
 import com.example.wd18finalproj.repositories.users.StudentRepository;
 import com.example.wd18finalproj.repositories.users.TutorRepository;
 
@@ -35,17 +36,27 @@ public class AppointmentService {
 	@Autowired
   StudentRepository studentRepository;
 	
+	@Autowired
+	  SubjectRepository subjectRepository;
+	
 	@DeleteMapping("/api/appt/{apptId}")
 	public void deleteAppt(@PathVariable("apptId") int id) {
 		repository.deleteById(id);
 	}
 	
-	@PostMapping("/api/tutor/{userId}/appt")
-	public Appointment createAppt(@PathVariable("userId") int tutorId, @RequestBody Appointment appt) {
+	@PostMapping("/api/tutor/{userId}/subject/{subjectId}/appt")
+	public Appointment createAppt(@PathVariable("userId") int tutorId,
+			@PathVariable("subjectId") int subId,
+			@RequestBody Appointment appt) {
 		Optional<Tutor> tData = tutorRepository.findById(tutorId);
 		if(tData.isPresent()) {
 			Tutor tutor = tData.get();
 			appt.setTutor(tutor);
+			Optional<Subject> sData = subjectRepository.findById(subId);
+			if(sData.isPresent()) {
+				Subject sub = sData.get();
+				appt.setSubject(sub);
+			}
 			return repository.save(appt);
 		}
 		else {
@@ -84,6 +95,17 @@ public class AppointmentService {
       return null;
     }  
   }
+	@GetMapping("/api/appt/{apptId}")
+	public Subject findSubjectForAppt(@PathVariable("apptId") int id) {
+		Optional<Appointment> aData = repository.findById(id);
+		if(aData.isPresent()) {
+			Appointment app = aData.get();
+			return app.getSubject();
+		}
+		else {
+			return null;
+		}
+	}
 	
 	@GetMapping("/api/student/{userId}/appt")
   public List<Appointment> findAllApptsForStudent(@PathVariable("userId") int userId) {

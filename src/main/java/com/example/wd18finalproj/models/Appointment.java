@@ -29,7 +29,6 @@ public class Appointment {
 	private Tutor tutor;
 	
 	@ManyToOne
-	@JsonIgnore
 	private Student student;
 	
 	private ApptType apptType;
